@@ -101,7 +101,7 @@ createParams(const common::Measure &m1, const common::Measure &m2,
         ParameterValue::create(m1), ParameterValue::create(m2),
         ParameterValue::create(m3), ParameterValue::create(m4),
         ParameterValue::create(m5), ParameterValue::create(m6),
-        ParameterValue::create(m7),
+        ParameterValue::create(m7)
     };
 }
 

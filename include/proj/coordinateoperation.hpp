@@ -1123,6 +1123,16 @@ class PROJ_GCC_DLL Conversion : public SingleOperation {
         const common::Scale &scale,
         const common::Length &eastingProjectionCentre,
         const common::Length &northingProjectionCentre);
+    
+    PROJ_DLL static ConversionNNPtr createHotineObliqueMercatorVariantC(
+        const util::PropertyMap &properties,
+        const common::Angle &latitudeProjectionCentre,
+        const common::Angle &longitudeProjectionCentre,
+        const common::Angle &azimuthInitialLine,
+        const common::Angle &angleFromRectifiedToSkrewGrid,
+        const common::Scale &scale,
+        const common::Length &eastingProjectionCentre,
+        const common::Length &northingProjectionCentre);
 
     PROJ_DLL static ConversionNNPtr
     createHotineObliqueMercatorTwoPointNaturalOrigin(

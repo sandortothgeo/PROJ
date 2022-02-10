@@ -1291,6 +1291,54 @@ ConversionNNPtr Conversion::createHotineObliqueMercatorVariantB(
 
 // ---------------------------------------------------------------------------
 
+/** \brief Instantiate a conversion based on the [Hotine Oblique Mercator
+ *(Variant B)]
+ *(https://proj.org/operations/projections/omerc.html) projection method
+ *
+ * This is the variant without the no_uoff parameter, which corresponds to
+ * GDAL &gt;=2.3 Hotine_Oblique_Mercator_Azimuth_Center projection.
+ * In this variant, the false grid coordinates are defined at the projection
+ *centre.
+ *
+ * This method is defined as [EPSG:9815]
+ * (https://www.epsg-registry.org/export.htm?gml=urn:ogc:def:method:EPSG::9815)
+ *
+ * \note In the case where azimuthInitialLine = angleFromRectifiedToSkrewGrid =
+ *90deg,
+ * this maps to the  [Swiss Oblique Mercator]
+ *(https://proj.org/operations/projections/somerc.html) formulas.
+ *
+ * @param properties See \ref general_properties of the conversion. If the name
+ * is not provided, it is automatically set.
+ * @param latitudeProjectionCentre See \ref latitude_projection_centre
+ * @param longitudeProjectionCentre See \ref longitude_projection_centre
+ * @param azimuthInitialLine See \ref azimuth_initial_line
+ * @param angleFromRectifiedToSkrewGrid See
+ * \ref angle_from_recitfied_to_skrew_grid
+ * @param scale See \ref scale_factor_initial_line
+ * @param eastingProjectionCentre See \ref easting_projection_centre
+ * @param northingProjectionCentre See \ref northing_projection_centre
+ * @return a new Conversion.
+ */
+ConversionNNPtr Conversion::createHotineObliqueMercatorVariantC(
+    const util::PropertyMap &properties,
+    const common::Angle &latitudeProjectionCentre,
+    const common::Angle &longitudeProjectionCentre,
+    const common::Angle &azimuthInitialLine,
+    const common::Angle &angleFromRectifiedToSkrewGrid,
+    const common::Scale &scale, const common::Length &eastingProjectionCentre,
+    const common::Length &northingProjectionCentre
+    ) {
+    return create(
+        properties, EPSG_CODE_METHOD_HOTINE_OBLIQUE_MERCATOR_VARIANT_C,
+        createParams(latitudeProjectionCentre, longitudeProjectionCentre,
+                     azimuthInitialLine, angleFromRectifiedToSkrewGrid, scale,
+                     eastingProjectionCentre, northingProjectionCentre));
+}
+
+
+// ---------------------------------------------------------------------------
+
 /** \brief Instantiate a conversion based on the [Hotine Oblique Mercator Two
  *Point Natural Origin]
  *(https://proj.org/operations/projections/omerc.html) projection method.
@@ -3682,6 +3730,9 @@ void Conversion::_exportToPROJString(
         const double angleRectifiedToSkewGrid = parameterValueNumeric(
             EPSG_CODE_PARAMETER_ANGLE_RECTIFIED_TO_SKEW_GRID,
             common::UnitOfMeasure::DEGREE);
+        double latc =  parameterValueNumeric(0,
+                             common::UnitOfMeasure::DEGREE);
+
         // Map to Swiss Oblique Mercator / somerc
         if (std::fabs(azimuth - 90) < 1e-4 &&
             std::fabs(angleRectifiedToSkewGrid - 90) < 1e-4) {
@@ -3704,10 +3755,12 @@ void Conversion::_exportToPROJString(
             formatter->addParam(
                 "y_0", parameterValueNumericAsSI(
                            EPSG_CODE_PARAMETER_NORTHING_PROJECTION_CENTRE));
-            formatter->addParam(
-                "latc", parameterValueNumericAsSI(
-                           EPSG_CODE_PARAMETER_NORTHING_PROJECTION_CENTRE));
-
+            if (latc != 0){
+                formatter->addParam(
+                    "latc", parameterValueNumeric(
+                                0,
+                                common::UnitOfMeasure::DEGREE));
+            }
         }
     } else if (methodEPSGCode == EPSG_CODE_METHOD_KROVAK_NORTH_ORIENTED) {
         double colatitude =

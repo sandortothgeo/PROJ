@@ -662,6 +662,18 @@ PJ PROJ_DLL *proj_create_conversion_hotine_oblique_mercator_variant_b(
     const char* ang_unit_name, double ang_unit_conv_factor,
     const char* linear_unit_name, double linear_unit_conv_factor);
 
+PJ PROJ_DLL *proj_create_conversion_hotine_oblique_mercator_variant_c(
+    PJ_CONTEXT *ctx,
+    double latitude_projection_centre,
+    double longitude_projection_centre,
+    double azimuth_initial_line,
+    double angle_from_rectified_to_skrew_grid,
+    double scale,
+    double easting_projection_centre,
+    double northing_projection_centre,
+    const char* ang_unit_name, double ang_unit_conv_factor,
+    const char* linear_unit_name, double linear_unit_conv_factor);
+
 PJ PROJ_DLL *proj_create_conversion_hotine_oblique_mercator_two_point_natural_origin(
     PJ_CONTEXT *ctx,
     double latitude_projection_centre,

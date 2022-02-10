@@ -6020,6 +6020,47 @@ PJ *proj_create_conversion_hotine_oblique_mercator_variant_b(
     }
     return nullptr;
 }
+
+// ---------------------------------------------------------------------------
+
+/** \brief Instantiate a ProjectedCRS with a conversion based on the Hotine
+ * Oblique Mercator (Variant C) projection method.
+ *
+ * See
+ * osgeo::proj::operation::Conversion::createHotineObliqueMercatorVariantC().
+ *
+ * Linear parameters are expressed in (linear_unit_name,
+ * linear_unit_conv_factor).
+ * Angular parameters are expressed in (ang_unit_name, ang_unit_conv_factor).
+ */
+PJ *proj_create_conversion_hotine_oblique_mercator_variant_c(
+    PJ_CONTEXT *ctx, double latitude_projection_centre,
+    double longitude_projection_centre, double azimuth_initial_line,
+    double angle_from_rectified_to_skrew_grid, double scale,
+    double easting_projection_centre, double northing_projection_centre,
+    const char *ang_unit_name, double ang_unit_conv_factor,
+    const char *linear_unit_name, double linear_unit_conv_factor
+    ) {
+    SANITIZE_CTX(ctx);
+    try {
+        UnitOfMeasure linearUnit(
+            createLinearUnit(linear_unit_name, linear_unit_conv_factor));
+        UnitOfMeasure angUnit(
+            createAngularUnit(ang_unit_name, ang_unit_conv_factor));
+        auto conv = Conversion::createHotineObliqueMercatorVariantC(
+            PropertyMap(), Angle(latitude_projection_centre, angUnit),
+            Angle(longitude_projection_centre, angUnit),
+            Angle(azimuth_initial_line, angUnit),
+            Angle(angle_from_rectified_to_skrew_grid, angUnit), Scale(scale),
+            Length(easting_projection_centre, linearUnit),
+            Length(northing_projection_centre, linearUnit));
+        return proj_create_conversion(ctx, conv);
+    } catch (const std::exception &e) {
+        proj_log_error(ctx, __FUNCTION__, e.what());
+    }
+    return nullptr;
+}
+
 // ---------------------------------------------------------------------------
 
 /** \brief Instantiate a ProjectedCRS with a conversion based on the Hotine
