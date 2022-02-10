@@ -1,7 +1,7 @@
 ##
 # OSGeo/PROJ
 
-FROM ubuntu:20.04 as builder
+FROM ubuntu:18.04 as builder
 
 MAINTAINER Howard Butler <howard@hobu.co>
 
@@ -9,10 +9,10 @@ ARG DESTDIR="/build"
 
 # Setup build env
 RUN apt-get update -y \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -y --fix-missing --no-install-recommends \
+    && apt-get install -y --fix-missing --no-install-recommends \
             software-properties-common build-essential ca-certificates \
-            cmake wget unzip \
-            zlib1g-dev libsqlite3-dev sqlite3 libcurl4-gnutls-dev \
+            make cmake wget unzip libtool automake \
+            zlib1g-dev libsqlite3-dev pkg-config sqlite3 libcurl4-gnutls-dev \
             libtiff5-dev
 
 COPY . /PROJ
@@ -20,14 +20,14 @@ COPY . /PROJ
 RUN cd /PROJ \
     && mkdir build \
     && cd build \
-    && cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF \
+    && cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DBUILD_CS2CS=ON \
     && make -j$(nproc) \
     && make install
 
 
 
 
-FROM ubuntu:20.04 as runner
+FROM ubuntu:18.04 as runner
 
 RUN date
 

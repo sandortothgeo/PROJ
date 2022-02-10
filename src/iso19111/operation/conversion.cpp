@@ -3674,6 +3674,41 @@ void Conversion::_exportToPROJString(
                 "y_0", parameterValueNumericAsSI(
                            EPSG_CODE_PARAMETER_NORTHING_PROJECTION_CENTRE));
         }
+    } else if (methodEPSGCode ==
+               EPSG_CODE_METHOD_HOTINE_OBLIQUE_MERCATOR_VARIANT_C) {
+        const double azimuth =
+            parameterValueNumeric(EPSG_CODE_PARAMETER_AZIMUTH_INITIAL_LINE,
+                                  common::UnitOfMeasure::DEGREE);
+        const double angleRectifiedToSkewGrid = parameterValueNumeric(
+            EPSG_CODE_PARAMETER_ANGLE_RECTIFIED_TO_SKEW_GRID,
+            common::UnitOfMeasure::DEGREE);
+        // Map to Swiss Oblique Mercator / somerc
+        if (std::fabs(azimuth - 90) < 1e-4 &&
+            std::fabs(angleRectifiedToSkewGrid - 90) < 1e-4) {
+            bConversionDone = true;
+            formatter->addStep("somerc");
+            formatter->addParam(
+                "lat_0", parameterValueNumeric(
+                             EPSG_CODE_PARAMETER_LATITUDE_PROJECTION_CENTRE,
+                             common::UnitOfMeasure::DEGREE));
+            formatter->addParam(
+                "lon_0", parameterValueNumeric(
+                             EPSG_CODE_PARAMETER_LONGITUDE_PROJECTION_CENTRE,
+                             common::UnitOfMeasure::DEGREE));
+            formatter->addParam(
+                "k_0", parameterValueNumericAsSI(
+                           EPSG_CODE_PARAMETER_SCALE_FACTOR_INITIAL_LINE));
+            formatter->addParam(
+                "x_0", parameterValueNumericAsSI(
+                           EPSG_CODE_PARAMETER_EASTING_PROJECTION_CENTRE));
+            formatter->addParam(
+                "y_0", parameterValueNumericAsSI(
+                           EPSG_CODE_PARAMETER_NORTHING_PROJECTION_CENTRE));
+            formatter->addParam(
+                "latc", parameterValueNumericAsSI(
+                           EPSG_CODE_PARAMETER_NORTHING_PROJECTION_CENTRE));
+
+        }
     } else if (methodEPSGCode == EPSG_CODE_METHOD_KROVAK_NORTH_ORIENTED) {
         double colatitude =
             parameterValueNumeric(EPSG_CODE_PARAMETER_COLATITUDE_CONE_AXIS,

@@ -317,6 +317,21 @@ static const ParamMapping *const paramsHomVariantB[] = {
     &paramFalseNorthingProjectionCentre,
     nullptr};
 
+static const ParamMapping paramLatcCentreLatCenter = {
+    "Ellipsoidal normal latitude", 0, "ellipsoidal_normal_latitude",
+    common::UnitOfMeasure::Type::ANGULAR, "latc"}; // is there EPSG?
+
+static const ParamMapping *const paramsHomVariantC[] = {
+    &paramLatCentreLatCenter,
+    &paramLonCentreLonCenterLonc,
+    &paramAzimuth,
+    &paramAngleToSkewGrid,
+    &paramScaleFactorInitialLine,
+    &paramFalseEastingProjectionCentre,
+    &paramFalseNorthingProjectionCentre,
+    &paramLatcCentreLatCenter,
+    nullptr};
+
 static const ParamMapping paramLatPoint1 = {
     "Latitude of 1st point", 0, "latitude_of_point_1",
     common::UnitOfMeasure::Type::ANGULAR, lat_1};
@@ -711,6 +726,11 @@ static const MethodMapping projectionMethodMappings[] = {
      EPSG_CODE_METHOD_HOTINE_OBLIQUE_MERCATOR_VARIANT_B,
      "Hotine_Oblique_Mercator_Azimuth_Center", "omerc", nullptr,
      paramsHomVariantB},
+
+     {EPSG_NAME_METHOD_HOTINE_OBLIQUE_MERCATOR_VARIANT_C,
+     EPSG_CODE_METHOD_HOTINE_OBLIQUE_MERCATOR_VARIANT_C,
+     "Hotine_Oblique_Mercator_Azimuth_Center", "omerc", nullptr,
+     paramsHomVariantC},
 
     {PROJ_WKT2_NAME_METHOD_HOTINE_OBLIQUE_MERCATOR_TWO_POINT_NATURAL_ORIGIN, 0,
      "Hotine_Oblique_Mercator_Two_Point_Natural_Origin", "omerc", nullptr,

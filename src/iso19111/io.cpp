@@ -9997,9 +9997,10 @@ PROJStringParser::Private::buildProjectedCRS(int iStep,
             mapping =
                 getMapping(EPSG_CODE_METHOD_HOTINE_OBLIQUE_MERCATOR_VARIANT_B);
         }
-    } else if (step.name == "somerc") {
+    } else if (step.name == "somerc" && !hasParamValue(step, "latc") ) {
         mapping =
             getMapping(EPSG_CODE_METHOD_HOTINE_OBLIQUE_MERCATOR_VARIANT_B);
+
         if (!hasParamValue(step, "alpha") && !hasParamValue(step, "gamma") &&
             !hasParamValue(step, "lonc")) {
             step.paramValues.emplace_back(Step::KeyValue("alpha", "90"));
@@ -10007,6 +10008,18 @@ PROJStringParser::Private::buildProjectedCRS(int iStep,
             step.paramValues.emplace_back(
                 Step::KeyValue("lonc", getParamValue(step, "lon_0")));
         }
+    } else if (step.name == "somerc" && hasParamValue(step, "latc") ) {
+        mapping =
+            getMapping(EPSG_CODE_METHOD_HOTINE_OBLIQUE_MERCATOR_VARIANT_C);
+
+        if (!hasParamValue(step, "alpha") && !hasParamValue(step, "gamma") &&
+            !hasParamValue(step, "lonc")) {
+            step.paramValues.emplace_back(Step::KeyValue("alpha", "90"));
+            step.paramValues.emplace_back(Step::KeyValue("gamma", "90"));
+            step.paramValues.emplace_back(
+                Step::KeyValue("lonc", getParamValue(step, "lon_0")));
+        }
+
     } else if (step.name == "krovak" &&
                ((iAxisSwap < 0 && getParamValue(step, "axis") == "swu" &&
                  !hasParamValue(step, "czech")) ||
