@@ -3756,9 +3756,9 @@ void Conversion::_exportToPROJString(
                 "y_0", parameterValueNumericAsSI(
                            EPSG_CODE_PARAMETER_NORTHING_PROJECTION_CENTRE));
             formatter->addParam(
-                    "latc", parameterValueNumeric(
-                                EPSG_CODE_PARAMETER_ELLIPSOIDAL_NORMAL_LATITUDE,
-                                common::UnitOfMeasure::DEGREE));
+                "latc", parameterValueNumeric(
+                            EPSG_CODE_PARAMETER_ELLIPSOIDAL_NORMAL_LATITUDE,
+                            common::UnitOfMeasure::DEGREE));
            }
     } else if (methodEPSGCode == EPSG_CODE_METHOD_KROVAK_NORTH_ORIENTED) {
         double colatitude =
