@@ -45,6 +45,7 @@ const char *WKT1_CENTRAL_MERIDIAN = "central_meridian";
 const char *WKT1_SCALE_FACTOR = "scale_factor";
 const char *WKT1_FALSE_EASTING = "false_easting";
 const char *WKT1_FALSE_NORTHING = "false_northing";
+const char *WKT1_ELLIPSOIDAL_NORMAL_LATITUDE = "ellipsoidal_normal_latitude";
 const char *WKT1_STANDARD_PARALLEL_1 = "standard_parallel_1";
 const char *WKT1_STANDARD_PARALLEL_2 = "standard_parallel_2";
 const char *WKT1_LATITUDE_OF_CENTER = "latitude_of_center";
@@ -60,6 +61,7 @@ static const char *lon_0 = "lon_0";
 static const char *lon_1 = "lon_1";
 static const char *lon_2 = "lon_2";
 static const char *lonc = "lonc";
+static const char *latc = "latc";
 static const char *alpha = "alpha";
 static const char *gamma = "gamma";
 static const char *k_0 = "k_0";
@@ -318,8 +320,9 @@ static const ParamMapping *const paramsHomVariantB[] = {
     nullptr};
 
 static const ParamMapping paramLatcCentreLatCenter = {
-    "Ellipsoidal normal latitude", 0, "ellipsoidal_normal_latitude",
-    common::UnitOfMeasure::Type::ANGULAR, "latc"}; // is there EPSG?
+    EPSG_NAME_PARAMETER_ELLIPSOIDAL_NORMAL_LATITUDE,
+    EPSG_CODE_PARAMETER_ELLIPSOIDAL_NORMAL_LATITUDE, WKT1_ELLIPSOIDAL_NORMAL_LATITUDE,
+    common::UnitOfMeasure::Type::ANGULAR, latc}; // is there EPSG?
 
 static const ParamMapping *const paramsHomVariantC[] = {
     &paramLatCentreLatCenter,

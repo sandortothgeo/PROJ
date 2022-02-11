@@ -3731,7 +3731,8 @@ void Conversion::_exportToPROJString(
         const double angleRectifiedToSkewGrid = parameterValueNumeric(
             EPSG_CODE_PARAMETER_ANGLE_RECTIFIED_TO_SKEW_GRID,
             common::UnitOfMeasure::DEGREE);
-
+        double latc =  parameterValueNumeric(0,
+                             common::UnitOfMeasure::DEGREE);
         // Map to Swiss Oblique Mercator / somerc
         if (std::fabs(azimuth - 90) < 1e-4 &&
             std::fabs(angleRectifiedToSkewGrid - 90) < 1e-4) {
@@ -3755,9 +3756,9 @@ void Conversion::_exportToPROJString(
                 "y_0", parameterValueNumericAsSI(
                            EPSG_CODE_PARAMETER_NORTHING_PROJECTION_CENTRE));
             formatter->addParam(
-                "latc", parameterValueNumeric(
-                             0,
-                             common::UnitOfMeasure::DEGREE));
+                    "latc", parameterValueNumeric(
+                                EPSG_CODE_PARAMETER_ELLIPSOIDAL_NORMAL_LATITUDE,
+                                common::UnitOfMeasure::DEGREE));
            }
     } else if (methodEPSGCode == EPSG_CODE_METHOD_KROVAK_NORTH_ORIENTED) {
         double colatitude =
