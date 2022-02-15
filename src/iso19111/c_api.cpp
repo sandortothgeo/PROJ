@@ -6039,7 +6039,8 @@ PJ *proj_create_conversion_hotine_oblique_mercator_variant_c(
     double angle_from_rectified_to_skrew_grid, double scale,
     double easting_projection_centre, double northing_projection_centre,
     const char *ang_unit_name, double ang_unit_conv_factor,
-    const char *linear_unit_name, double linear_unit_conv_factor
+    const char *linear_unit_name, double linear_unit_conv_factor,
+    double ellipsoidal_normal_latitude
     ) {
     SANITIZE_CTX(ctx);
     try {
@@ -6053,7 +6054,8 @@ PJ *proj_create_conversion_hotine_oblique_mercator_variant_c(
             Angle(azimuth_initial_line, angUnit),
             Angle(angle_from_rectified_to_skrew_grid, angUnit), Scale(scale),
             Length(easting_projection_centre, linearUnit),
-            Length(northing_projection_centre, linearUnit));
+            Length(northing_projection_centre, linearUnit),
+            Angle(ellipsoidal_normal_latitude, angUnit));
         return proj_create_conversion(ctx, conv);
     } catch (const std::exception &e) {
         proj_log_error(ctx, __FUNCTION__, e.what());

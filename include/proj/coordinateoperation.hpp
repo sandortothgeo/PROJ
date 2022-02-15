@@ -1132,7 +1132,8 @@ class PROJ_GCC_DLL Conversion : public SingleOperation {
         const common::Angle &angleFromRectifiedToSkrewGrid,
         const common::Scale &scale,
         const common::Length &eastingProjectionCentre,
-        const common::Length &northingProjectionCentre);
+        const common::Length &northingProjectionCentre,
+        const common::Angle &ellipsoidalNormalLatitude);
 
     PROJ_DLL static ConversionNNPtr
     createHotineObliqueMercatorTwoPointNaturalOrigin(

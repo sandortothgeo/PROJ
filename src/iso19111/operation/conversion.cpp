@@ -1293,7 +1293,7 @@ ConversionNNPtr Conversion::createHotineObliqueMercatorVariantB(
 // ---------------------------------------------------------------------------
 
 /** \brief Instantiate a conversion based on the [Hotine Oblique Mercator
- *(Variant B)]
+ *(Variant C)]
  *(https://proj.org/operations/projections/omerc.html) projection method
  *
  * This is the variant without the no_uoff parameter, which corresponds to
@@ -1301,8 +1301,8 @@ ConversionNNPtr Conversion::createHotineObliqueMercatorVariantB(
  * In this variant, the false grid coordinates are defined at the projection
  *centre.
  *
- * This method is defined as [EPSG:9815]
- * (https://www.epsg-registry.org/export.htm?gml=urn:ogc:def:method:EPSG::9815)
+ * This method is defined as [EPSG:1]
+ * (https://www.epsg-registry.org/export.htm?gml=urn:ogc:def:method:EPSG::1)
  *
  * \note In the case where azimuthInitialLine = angleFromRectifiedToSkrewGrid =
  *90deg,
@@ -1319,6 +1319,7 @@ ConversionNNPtr Conversion::createHotineObliqueMercatorVariantB(
  * @param scale See \ref scale_factor_initial_line
  * @param eastingProjectionCentre See \ref easting_projection_centre
  * @param northingProjectionCentre See \ref northing_projection_centre
+ * @param ellipsoidalNormalLatitude See \ref  ellipsoidal_normal_latitude
  * @return a new Conversion.
  */
 ConversionNNPtr Conversion::createHotineObliqueMercatorVariantC(
@@ -1328,13 +1329,14 @@ ConversionNNPtr Conversion::createHotineObliqueMercatorVariantC(
     const common::Angle &azimuthInitialLine,
     const common::Angle &angleFromRectifiedToSkrewGrid,
     const common::Scale &scale, const common::Length &eastingProjectionCentre,
-    const common::Length &northingProjectionCentre
+    const common::Length &northingProjectionCentre,
+    const common::Angle &ellipsoidalNormalLatitude
     ) {
     return create(
         properties, EPSG_CODE_METHOD_HOTINE_OBLIQUE_MERCATOR_VARIANT_C,
         createParams(latitudeProjectionCentre, longitudeProjectionCentre,
                      azimuthInitialLine, angleFromRectifiedToSkrewGrid, scale,
-                     eastingProjectionCentre, northingProjectionCentre));
+                     eastingProjectionCentre, northingProjectionCentre, ellipsoidalNormalLatitude));
 }
 
 

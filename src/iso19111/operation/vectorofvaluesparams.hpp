@@ -79,6 +79,12 @@ createParams(const common::Measure &m1, const common::Measure &m2,
              const common::Measure &m5, const common::Measure &m6,
              const common::Measure &m7);
 
+VectorOfValues
+createParams(const common::Measure &m1, const common::Measure &m2,
+             const common::Measure &m3, const common::Measure &m4,
+             const common::Measure &m5, const common::Measure &m6,
+             const common::Measure &m7, const common::Measure &m8);
+
 // ---------------------------------------------------------------------------
 
 struct VectorOfParameters : public std::vector<OperationParameterNNPtr> {
